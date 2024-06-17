@@ -1,20 +1,19 @@
-import { useState } from "react";
 import Button from "./Button";
+import { useState } from "react";
 const FormAddFriend = ({ onAddFriend }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48");
   function handleSubmit(e) {
     e.preventDefault();
-    if (!image || !name) return;
-
+    if (!name || !image) return;
     const id = crypto.randomUUID();
-    const newFriend = {
+    const newItem = {
       id,
       name,
-      image: `${image}?=${id}`,
+      image: `${image}?= ${id}`,
       balance: 0,
     };
-    onAddFriend(newFriend);
+    onAddFriend(newItem);
     setImage("https://i.pravatar.cc/48");
     setName("");
   }

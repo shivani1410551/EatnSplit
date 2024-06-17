@@ -1,17 +1,17 @@
 import Friend from "./Friend";
-
-const FriendList = ({ friends, onSelection, selectedFriends }) => {
-  const friendsData = friends.map((friend) => {
+const FriendList = ({ addFriend, onSelectedFriend, selectedFriend }) => {
+  const FriendsList = addFriend.map((friend) => {
     return (
       <Friend
-        friend={friend}
+        item={friend}
         key={friend.id}
-        onSelection={onSelection}
-        selectedFriends={selectedFriends}
+        addFriend={addFriend}
+        onSelectedFriend={onSelectedFriend}
+        selectedFriend={selectedFriend}
       />
     );
   });
-  return <ul>{friendsData}</ul>;
+  return <ul>{FriendsList}</ul>;
 };
 
 export default FriendList;
