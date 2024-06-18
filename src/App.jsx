@@ -1,9 +1,10 @@
 import "./style.scss";
-import FormSplitBill from "./components/formSplitBill";
-import Button from "./components/Button";
 import { useState } from "react";
-import FormAddFriend from "./components/FormAddFriend";
+import Button from "./components/Button";
+import React from "react";
 import FriendList from "./components/FriendList";
+import FormAddFriend from "./components/FormAddFriend";
+import FormSplitBill from "./components/FormSplitBill";
 const initialFriends = [
   {
     id: 118234,
@@ -25,51 +26,38 @@ const initialFriends = [
   },
 ];
 const App = () => {
-  const [showAddFriend, setShowAddFriend] = useState(false);
   const [addFriend, setAddFriend] = useState(initialFriends);
+  const [showAddFriend, setShowAddFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(null);
-  function handleShowAddFriend() {
-    setShowAddFriend((prev) => !prev);
-  }
+
   function handleAddFriend(friend) {
     setAddFriend((addFriend) => [...addFriend, friend]);
     setShowAddFriend(false);
   }
-  function handleSelectFriend(friend) {
-    setSelectedFriend((curr) => (curr?.id === friend?.id ? null : friend));
-    setShowAddFriend(false);
+  function handleShowAddFriend() {
+    setShowAddFriend((friend) => !friend);
   }
-  function handleSplitBill(value) {
-    setAddFriend((addFriend) =>
-      addFriend.map((friend) =>
-        friend.id === selectedFriend.id
-          ? { ...friend, balance: friend.balance + value }
-          : addFriend
-      )
-    );
-    setSelectedFriend(null);
+  function handleSelection(friend) {
+    setSelectedFriend(friend);
   }
   return (
     <div className="wrapper">
       <div className="sidebar">
         <FriendList
           addFriend={addFriend}
-          onSelectedFriend={handleSelectFriend}
+          onSelection={handleSelection}
           selectedFriend={selectedFriend}
         />
+
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
-        <Button onClick={handleShowAddFriend}>
-          {showAddFriend === true ? "Close" : "Add Friend"}
+
+        <Button onShowFriend={handleShowAddFriend}>
+          {showAddFriend ? "Close" : "Add Friend"}
         </Button>
-        {selectedFriend && (
-          <FormSplitBill
-            selectedFriend={selectedFriend}
-            onSplitBill={handleSplitBill}
-          />
-        )}
       </div>
+
+      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} />}
     </div>
   );
 };
-
 export default App;

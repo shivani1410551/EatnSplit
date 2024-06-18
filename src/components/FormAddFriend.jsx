@@ -7,18 +7,19 @@ const FormAddFriend = ({ onAddFriend }) => {
     e.preventDefault();
     if (!name || !image) return;
     const id = crypto.randomUUID();
-    const newItem = {
+    const newFriend = {
       id,
       name,
       image: `${image}?= ${id}`,
       balance: 0,
     };
-    onAddFriend(newItem);
-    setImage("https://i.pravatar.cc/48");
+    onAddFriend(newFriend);
+    console.log(newFriend);
     setName("");
+    setImage("https://i.pravatar.cc/48");
   }
   return (
-    <form className="formAddFriend" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="formAddFriend">
       <label>
         Friend Name
         <input
