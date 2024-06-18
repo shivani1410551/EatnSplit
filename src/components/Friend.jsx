@@ -1,7 +1,7 @@
 import Button from "./Button";
-const Friend = ({ friend, onSelection }) => {
+const Friend = ({ friend, onSelection, selectedFriend }) => {
   return (
-    <li>
+    <li className={selectedFriend?.id === friend.id ? "selected" : ""}>
       <img src={friend.image} alt={friend.name} />
       <h2 className="name">{friend.name}</h2>
       {friend.balance > 0 && (
@@ -15,7 +15,9 @@ const Friend = ({ friend, onSelection }) => {
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are even.</p>}
-      <Button onClick={() => onSelection(friend)}>Select</Button>
+      <Button onClick={() => onSelection(friend)}>
+        {selectedFriend?.id === friend.id ? "Close" : "Select"}
+      </Button>
     </li>
   );
 };
