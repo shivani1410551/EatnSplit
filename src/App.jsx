@@ -46,7 +46,7 @@ const App = () => {
   function handleSplitBill(value) {
     setAddFriend((addFriend) =>
       addFriend.map((friend) => {
-        friend.id === selectedFriend.id
+        return friend.id === selectedFriend.id
           ? { ...friend, balance: friend.balance + value }
           : friend;
       })
